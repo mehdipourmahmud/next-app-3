@@ -12,7 +12,9 @@ export const createNewProject = async (projectData,name,email) => {
         liveSiteURL
         githubURL
         category
-        createdBy
+        createdBy{
+          name
+          email
       }
     }
   }
