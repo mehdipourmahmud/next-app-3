@@ -29,7 +29,6 @@ export const createNewProject = async (projectData,name,email) => {
       githubURL: projectData.githubURL, // Change 'githudURL' to 'githubURL'
       category: projectData.category,
       createdBy:{
-        name:name,
         email:email
       }
 
