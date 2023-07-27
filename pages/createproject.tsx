@@ -29,8 +29,8 @@ const createproject = () => {
     e.preventDefault();
     try {
       // Call createNewProject function instead of Project.create
-      const name = "Johnth";
-      const email = "mehdipourmahmood@gmail.com";
+      const name = "hhh";
+      const email = "mehdipourmahmood@gmail2.com";
       await createNewProject(formData,session?.user?.email);
   
       // Clear the form after submission (Note: You might want to do this inside createNewProject function)
