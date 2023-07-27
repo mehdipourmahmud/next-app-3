@@ -1,16 +1,5 @@
 import { g, auth, config } from "@grafbase/sdk";
 
-// Welcome to Grafbase!
-// Define your data models, integrate auth, permission rules, custom resolvers, search, and more with Grafbase.
-// Integrate Auth
-// https://grafbase.com/docs/auth
-//
-// const authProvider = auth.OpenIDConnect({
-//   issuer: process.env.ISSUER_URL ?? ''
-// })
-//
-// Define Data Models
-// https://grafbase.com/docs/database
 
 const User = g.model("User", {
   name: g.string().length({ min: 2, max: 20 }),
@@ -26,11 +15,14 @@ const Project = g.model("Project", {
   title: g.string(),
   description: g.string(),
   image: g.url(),
-  liveSiteURL: g.url(),
-  githudURL: g.url(),
+  liveSiteURL: g.url().optional(),
+  githudURL: g.url().optional(),
   category: g.string().search(),
-  categoryBy: g.relation(() => User),
+  createdBy: g.relation(() => User),
 });
+
+export { User, Project }; 
+
 
 export default config({
   schema: g,

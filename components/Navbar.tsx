@@ -1,19 +1,23 @@
-"use client"
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { NavLinks } from '@/constants'
-import Link from 'next/link'
-
-
+"use client";
+import { Fragment, useEffect, useState } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { NavLinks } from "@/constants";
+import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
+import ProfileMenu from "./ProfileMenu";
+import { BellIcon, XIcon } from '@heroicons/react/outline';
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+const Navbar = () => {
+  const { data: session, status } = useSession();
+
+  console.log(session, status);
+
   return (
-    <Disclosure as="nav" >
+    <Disclosure as="nav">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-8xl sm:px-6 lg:p-6">
@@ -23,21 +27,21 @@ export default function Navbar() {
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    <XIcon className="block h-6 w-6" aria-hidden="true" />
                   ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    <BellIcon className="block h-6 w-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link href="/">     <img
-                    className="h-8 w-auto"
-                    src="/logo.svg"
-                    alt="flexxible"
-                  />
+                  <Link href="/">
+                    <img
+                      className="h-8 w-auto"
+                      src="/logo.svg"
+                      alt="flexxible"
+                    />
                   </Link>
-             
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-4">
@@ -46,10 +50,12 @@ export default function Navbar() {
                         key={item.key}
                         href={item.href}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-black' : 'text-black hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
+                          item.current
+                            ? "bg-gray-900 text-black"
+                            : "text-black hover:bg-gray-700 hover:text-white",
+                          "rounded-md px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.text}
                       </a>
@@ -58,24 +64,31 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                    <Menu.Button className="">
+                      {status === "authenticated" ? (
+                        <div className="flex items-center space-x-2">
+                          <div className="flex flex-col items-center">
+                            <img
+                              className="h-8 w-8 rounded-full"
+                              src={session?.user?.image || "..."}
+                              alt=""
+                            />
+                          </div>
+                          <Link href='/createproject'>
+                          share work
+                          </Link>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => signIn("google")}
+                          className="rounded-full bg-slate-600 p-2 text-white"
+                        >
+                          Sign in with Google
+                        </button>
+                      )}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -88,36 +101,52 @@ export default function Navbar() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
+                      {status === "authenticated" && (
+                        <>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <>
+                                <div
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}
+                                ></div>
+                                {status === "authenticated" && (
+                                  <ProfileMenu session={session} />
+                                )}
+                              </>
+                            )}
+                          </Menu.Item>
+
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                to="/"
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                              >
+                                Settings
+                              </button>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                                onClick={() => signOut()}
+                              >
+                                Sign out
+                              </button>
+                            )}
+                          </Menu.Item>
+                        </>
+                      )}
                     </Menu.Items>
                   </Transition>
                 </Menu>
@@ -133,10 +162,12 @@ export default function Navbar() {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-black hover:bg-gray-700 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium'
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-black hover:bg-gray-700 hover:text-white",
+                    "block rounded-md px-3 py-2 text-base font-medium"
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.text}
                 </Disclosure.Button>
@@ -146,5 +177,7 @@ export default function Navbar() {
         </>
       )}
     </Disclosure>
-  )
-}
+  );
+};
+
+export default Navbar;
