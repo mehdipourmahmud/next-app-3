@@ -1,7 +1,7 @@
 require('dotenv').config();
 const API_Endpoint='https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
 
-export const createNewProject = async (projectData,name,email) => {
+export const createNewProject = async (projectData,email) => {
   const mutation = `
   mutation ProjectCreate($input: ProjectCreateInput!) {
     projectCreate(input: $input) {
@@ -12,7 +12,9 @@ export const createNewProject = async (projectData,name,email) => {
         liveSiteURL
         githubURL
         category
-        createdBy
+        createdBy{
+          email
+        }
       }
     }
   }
@@ -28,7 +30,6 @@ export const createNewProject = async (projectData,name,email) => {
       githubURL: projectData.githubURL, // Change 'githudURL' to 'githubURL'
       category: projectData.category,
       createdBy:{
-        name:name,
         email:email
       }
 
