@@ -14,7 +14,7 @@ const createproject = () => {
     image: "",
     liveSiteURL: "",
     githudURL: "",
-    category: "",
+    category: "edeeded",
   });
 
   const handleChange = (e) => {
@@ -26,8 +26,8 @@ const createproject = () => {
     e.preventDefault();
     try {
       // Call createNewProject function instead of Project.create
-      const name = "John Doe";
-      const email = "john@example.com";
+      const name = "Johnh";
+      const email = "jhohn@example.com";
       await createNewProject(formData,name,email);
   
       // Clear the form after submission (Note: You might want to do this inside createNewProject function)
