@@ -13,7 +13,6 @@ export const createNewProject = async (projectData,name,email) => {
         githubURL
         category
         createdBy{
-          name
           email
       }
     }
