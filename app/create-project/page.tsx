@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 const CreateNewProject = () => {
   const { data: session, status } = useSession();
 
-
+console.log(session?.user?.email,'kk')
 
   const [formData, setFormData] = useState({
     title: "",
