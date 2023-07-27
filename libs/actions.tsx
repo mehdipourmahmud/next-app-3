@@ -30,7 +30,7 @@ export const createNewProject = async (projectData, email) => {
       githubURL: projectData.githubURL,
       category: projectData.category,
       createdBy: {
-        email: email, 
+        email
       },
     },
   };
@@ -51,6 +51,7 @@ export const createNewProject = async (projectData, email) => {
     });
 
     const data = await response.json();
+    console.log(data,'dd')
 
     if (data.errors) {
       console.error("Error creating project:", data.errors);

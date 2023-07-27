@@ -1,14 +1,15 @@
+"use client"
 import { useState } from "react";
-import { Project } from "../grafbase/grafbase.config"; // Import the Project model
+import { Project } from "../../grafbase/grafbase.config";
 import ListBox from "@/components/ListBox";
 import "tailwindcss/tailwind.css";
-import { createNewProject } from "../libs/actions";
+import { createNewProject } from "../../libs/actions";
 import Navbar from "@/components/Navbar";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
-const createproject = () => {
-const router = useRouter();
-const { email } = router.query;
+const CreateNewProject = () => {
+  const { data: session, status } = useSession();
+
 
 
   const [formData, setFormData] = useState({
@@ -28,9 +29,7 @@ const { email } = router.query;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Call createNewProject function instead of Project.create
-
-      await createNewProject(formData,decodeURIComponent(email) );
+      await createNewProject(formData,session?.user?.email );
 
       setFormData({
         title: "",
@@ -138,4 +137,4 @@ const { email } = router.query;
   );
 };
 
-export default createproject;
+export default CreateNewProject;
