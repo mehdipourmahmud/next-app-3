@@ -3,7 +3,7 @@ import { g, auth, config } from "@grafbase/sdk";
 
 const User = g.model("User", {
   name: g.string().length({ min: 2, max: 20 }),
-  email: g.email().unique(),
+  email: g.string().unique(),
   avatarURL: g.url(),
   description: g.string(),
   githubURL: g.url().optional(),
