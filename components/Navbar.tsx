@@ -77,9 +77,9 @@ const Navbar = () => {
                               alt=""
                             />
                           </div>
-                          <Link href='/createproject'>
-                          share work
-                          </Link>
+                          <Link href={`/createproject?email=${encodeURIComponent(session?.user?.email)}`}>
+          Share work
+        </Link>
                         </div>
                       ) : (
                         <button
