@@ -27,7 +27,7 @@ const createproject = () => {
     try {
       // Call createNewProject function instead of Project.create
       const name = "Johnth";
-      const email = "jhofthn@etxampfle.com";
+      const email = "mehdipourmahmood@gmail.com";
       await createNewProject(formData,email);
   
       // Clear the form after submission (Note: You might want to do this inside createNewProject function)
