@@ -13,10 +13,6 @@ export const createNewProject = async (projectData,name,email) => {
         liveSiteURL
         githudURL
         category
-        categoryBy {
-					email
-					name
-				}
       }
     }
   }
@@ -31,10 +27,7 @@ export const createNewProject = async (projectData,name,email) => {
       liveSiteURL: projectData.liveSiteURL,
       githubURL: projectData.githudURL, // Change 'githudURL' to 'githubURL'
       category: projectData.category,
-      createdBy: {
-        name
-        email,
-      },
+
     },
   };
   try {
