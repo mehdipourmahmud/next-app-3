@@ -13,7 +13,7 @@ const createproject = () => {
     description: "",
     image: "",
     liveSiteURL: "",
-    githudURL: "",
+    githubURL: "",
     category: "edeeded",
   });
 
@@ -26,8 +26,8 @@ const createproject = () => {
     e.preventDefault();
     try {
       // Call createNewProject function instead of Project.create
-      const name = "Johnh";
-      const email = "jhohn@example.com";
+      const name = "Johnth";
+      const email = "jhothn@etxample.com";
       await createNewProject(formData,name,email);
   
       // Clear the form after submission (Note: You might want to do this inside createNewProject function)
@@ -36,7 +36,7 @@ const createproject = () => {
         description: "",
         image: "",
         liveSiteURL: "",
-        githudURL: "",
+        githubURL: "",
         category: "",
       });
   
@@ -107,7 +107,7 @@ const createproject = () => {
           type="text"
           id="githudURL"
           name="githudURL"
-          value={formData.githudURL}
+          value={formData.githubURL}
           onChange={handleChange}
           required
           className="w-full p-2 border rounded"

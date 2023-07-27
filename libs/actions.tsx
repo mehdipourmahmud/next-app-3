@@ -10,7 +10,7 @@ export const createNewProject = async (projectData,name,email) => {
         description
         image
         liveSiteURL
-        githudURL
+        githubURL
         category
         createdBy
       }
@@ -25,7 +25,7 @@ export const createNewProject = async (projectData,name,email) => {
       description: projectData.description,
       image: projectData.image,
       liveSiteURL: projectData.liveSiteURL,
-      githubURL: projectData.githudURL, // Change 'githudURL' to 'githubURL'
+      githubURL: projectData.githubURL, // Change 'githudURL' to 'githubURL'
       category: projectData.category,
       createdBy:{
         name:name,
