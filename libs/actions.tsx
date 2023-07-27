@@ -1,8 +1,8 @@
 require('dotenv').config();
 const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
+// @ts-ignore
 
 export const createNewProject = async (projectData, email) => {
-  console.log( email, 'type');
   const mutation = `
     mutation ProjectCreate($input: ProjectCreateInput!) {
       projectCreate(input: $input) {

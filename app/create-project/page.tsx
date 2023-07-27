@@ -1,6 +1,5 @@
 "use client"
 import { useState } from "react";
-import { Project } from "../../grafbase/grafbase.config";
 import ListBox from "@/components/ListBox";
 import "tailwindcss/tailwind.css";
 import { createNewProject } from "../../libs/actions";
