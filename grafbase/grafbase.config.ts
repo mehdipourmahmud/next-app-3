@@ -2,7 +2,7 @@ import { g, auth, config } from "@grafbase/sdk";
 
 // @ts-ignore
 
-const User = g.model("User", {
+const user = g.model("User", {
   name: g.string().length({ min: 2, max: 20 }),
   email: g.string().unique(),
   avatarURL: g.url(),
@@ -14,7 +14,7 @@ const User = g.model("User", {
 });
 // @ts-ignore
 
-const Project = g.model("Project", {
+const project = g.model("Project", {
   title: g.string(),
   description: g.string(),
   image: g.url(),
@@ -25,7 +25,7 @@ const Project = g.model("Project", {
 
 });
 
-export { User, Project }; 
+export { user, project }; 
 
 
 export default config({
