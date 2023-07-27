@@ -1,5 +1,6 @@
 import { g, auth, config } from "@grafbase/sdk";
 
+// @ts-ignore
 
 const User = g.model("User", {
   name: g.string().length({ min: 2, max: 20 }),
@@ -9,7 +10,9 @@ const User = g.model("User", {
   githubURL: g.url().optional(),
   linkInUrl: g.url().optional(),
   projects: g.relation(()=>Project).list().optional()
+  
 });
+// @ts-ignore
 
 const Project = g.model("Project", {
   title: g.string(),
@@ -19,6 +22,7 @@ const Project = g.model("Project", {
   githubURL: g.url().optional(), 
   category: g.string().search(), 
   createdBy: g.relation(() => User),
+
 });
 
 export { User, Project }; 
