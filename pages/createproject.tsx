@@ -105,8 +105,8 @@ const createproject = () => {
         <label htmlFor="githudURL" className="block mb-1 font-bold">GitHub URL:</label>
         <input
           type="text"
-          id="githudURL"
-          name="githudURL"
+          id="githubURL"
+          name="githubURL"
           value={formData.githubURL}
           onChange={handleChange}
           required
