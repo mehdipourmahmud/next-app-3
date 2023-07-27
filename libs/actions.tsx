@@ -1,10 +1,8 @@
 require('dotenv').config();
-const API_Endpoint='https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
-
-<<<<<<< HEAD
+const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
 
 export const createNewProject = async (projectData, email) => {
-  console.log(typeof email,'type')
+  console.log(typeof email, 'type');
   const mutation = `
     mutation ProjectCreate($input: ProjectCreateInput!) {
       projectCreate(input: $input) {
@@ -19,21 +17,6 @@ export const createNewProject = async (projectData, email) => {
             email
           }
         }
-=======
-export const createNewProject = async (projectData,email) => {
-  const mutation = `
-  mutation ProjectCreate($input: ProjectCreateInput!) {
-    projectCreate(input: $input) {
-      project {
-        title
-        description
-        image
-        liveSiteURL
-        githubURL
-        category
-        createdBy{
-          email
->>>>>>> 2734742b14a148b1457d1b01ae4e1d427be79935
       }
     }
   `;
@@ -46,21 +29,14 @@ export const createNewProject = async (projectData,email) => {
       liveSiteURL: projectData.liveSiteURL,
       githubURL: projectData.githubURL,
       category: projectData.category,
-<<<<<<< HEAD
       createdBy: {
-        email: email, // Set the "createdBy" field using the provided email
+        email: email, 
       },
-=======
-      createdBy:{
-        email:email
-      }
-
->>>>>>> 2734742b14a148b1457d1b01ae4e1d427be79935
     },
   };
+
   try {
     const apiUrl = API_Endpoint;
-
 
     if (!apiUrl) {
       throw new Error("API endpoint is not defined.");

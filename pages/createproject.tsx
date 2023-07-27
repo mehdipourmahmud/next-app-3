@@ -11,10 +11,6 @@ const router = useRouter();
 const { email } = router.query;
 
 
-
-
-const createproject = () => {
-
   const [formData, setFormData] = useState({
     title: "",
     description: "",
