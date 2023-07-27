@@ -4,10 +4,13 @@ import ListBox from "@/components/ListBox";
 import 'tailwindcss/tailwind.css';
 import {createNewProject} from '../libs/actions';
 import Navbar from "@/components/Navbar";
+import { useSession } from "next-auth/react";
 
 
 
 const createproject = () => {
+    const { data: session, status } = useSession();
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -28,7 +31,7 @@ const createproject = () => {
       // Call createNewProject function instead of Project.create
       const name = "Johnth";
       const email = "mehdipourmahmood@gmail.com";
-      await createNewProject(formData,email);
+      await createNewProject(formData,session?.user?.email);
   
       // Clear the form after submission (Note: You might want to do this inside createNewProject function)
       setFormData({
