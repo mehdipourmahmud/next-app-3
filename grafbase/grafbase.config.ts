@@ -9,7 +9,7 @@ const user = g.model("User", {
   description: g.string(),
   githubURL: g.url().optional(),
   linkInUrl: g.url().optional(),
-  projects: g.relation(()=>Project).list().optional()
+  projects: g.relation(()=>project).list().optional()
   
 });
 // @ts-ignore
@@ -21,7 +21,7 @@ const project = g.model("Project", {
   liveSiteURL: g.url().optional(),
   githubURL: g.url().optional(), 
   category: g.string().search(), 
-  createdBy: g.relation(() => User),
+  createdBy: g.relation(() => user),
 
 });
 
