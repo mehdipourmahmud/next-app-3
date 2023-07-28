@@ -1,7 +1,5 @@
 import { GraphQLClient } from "graphql-request";
-type User = {
-  email: String;
-}
+
 
 type Project = {
   title: String;
@@ -10,8 +8,10 @@ type Project = {
   liveSiteURL: String;
   githubURL: String;
   category: String;
-  createdBy: User;
-}
+  createdBy: {
+    email: string;
+
+  };}
 const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
 //@ts-ignore
 export const createNewProject = async (projectData:Project, email:string) => {
