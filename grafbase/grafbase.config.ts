@@ -1,6 +1,5 @@
 import { g, auth, config } from "@grafbase/sdk";
 
-// @ts-ignore
 type User = {
   email: String;
 }
@@ -25,7 +24,6 @@ const user = g.model("User", {
   projects: g.relation(()=>project).list().optional()
   
 });
-// @ts-ignore
 
 const project = g.model("Project", {
   title: g.string(),
