@@ -1,14 +1,33 @@
 import { GraphQLClient } from "graphql-request";
 
-type Project = {
+
+ type User =  {
+  id: string;
+  name: string;
+  email: string;
+  description: string | null;
+  avatarUrl: string;
+  githubUrl: string | null;
+  linkedinUrl: string | null;
+}
+
+
+type Project ={
   title: string;
   description: string;
   image: string;
-  liveSiteURL: string;
-  githubURL: string;
+  liveSiteUrl: string;
+  githubUrl: string;
   category: string;
-  createdBy: { email: string };
-};
+  id: string;
+  createdBy: {
+    name: string;
+    email: string;
+    avatarUrl: string;
+    id: string;
+  };
+}
+
 
 const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
 
