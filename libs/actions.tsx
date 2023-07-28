@@ -1,19 +1,18 @@
 import { GraphQLClient } from "graphql-request";
 
-
 type Project = {
-  title: String;
-  description: String;
-  image: String;
-  liveSiteURL: String;
-  githubURL: String;
-  category: String;
-  createdBy: { email: string }; 
+  title: string;
+  description: string;
+  image: string;
+  liveSiteURL: string;
+  githubURL: string;
+  category: string;
+  createdBy: { email: string };
+};
 
- }
 const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
-//@ts-ignore
-export const createNewProject = async (projectData:Project) => {
+
+export const createNewProject = async (projectData: Project) => {
   const mutation = `
     mutation ProjectCreate($input: ProjectCreateInput!) {
       projectCreate(input: $input) {
@@ -41,7 +40,7 @@ export const createNewProject = async (projectData:Project) => {
       githubURL: projectData.githubURL,
       category: projectData.category,
       createdBy: {
-        email
+        email: projectData.createdBy.email // Access the email property correctly
       },
     },
   };
