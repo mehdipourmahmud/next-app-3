@@ -6,9 +6,8 @@ import { createNewProject } from "../../libs/actions";
 import { useSession } from "next-auth/react";
 
 const CreateNewProject = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
-console.log(session?.user?.email,'kk')
 
   const [formData, setFormData] = useState({
     title: "",
@@ -27,8 +26,9 @@ console.log(session?.user?.email,'kk')
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createNewProject(formData,session?.user?.email );
-
+      const updatedFormData = { ...formData, createdBy: { email: session?.user?.email } };
+    
+      await createNewProject(updatedFormData);
       setFormData({
         title: "",
         description: "",

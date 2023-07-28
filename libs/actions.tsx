@@ -8,13 +8,12 @@ type Project = {
   liveSiteURL: String;
   githubURL: String;
   category: String;
-  createdBy: {
-    email: string;
+  createdBy: { email: string }; 
 
-  };}
+ }
 const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
 //@ts-ignore
-export const createNewProject = async (projectData:Project, email:string) => {
+export const createNewProject = async (projectData:Project) => {
   const mutation = `
     mutation ProjectCreate($input: ProjectCreateInput!) {
       projectCreate(input: $input) {
