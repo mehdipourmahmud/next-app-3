@@ -1,7 +1,7 @@
-require('dotenv').config();
-const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
-// @ts-ignore
+import { GraphQLClient } from "graphql-request";
 
+const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
+//@ts-ignore
 export const createNewProject = async (projectData, email) => {
   const mutation = `
     mutation ProjectCreate($input: ProjectCreateInput!) {
@@ -42,22 +42,16 @@ export const createNewProject = async (projectData, email) => {
       throw new Error("API endpoint is not defined.");
     }
 
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query: mutation, variables }),
-    });
+    const client = new GraphQLClient(apiUrl);
 
-    const data = await response.json();
-    console.log(data,'dd')
+    const data = await client.request(mutation, variables);
+    console.log(data, 'dd');
 
     if (data.errors) {
       console.error("Error creating project:", data.errors);
       alert("Error creating project. Please try again.");
     } else {
-      console.log("Project created successfully:", data.data.projectCreate);
+      console.log("Project created successfully:", data.projectCreate);
       alert("Project created successfully!");
       // Clear the form after successful creation
     }
