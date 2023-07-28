@@ -32,7 +32,7 @@ const project = g.model("Project", {
   liveSiteURL: g.url().optional(),
   githubURL: g.url().optional(), 
   category: g.string().search(), 
-  createdBy: g.relation(() => user),
+  createdBy: g.relation(() => user).optional(),
 
 });
 
