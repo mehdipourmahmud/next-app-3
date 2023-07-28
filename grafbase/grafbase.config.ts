@@ -1,18 +1,6 @@
 import { g, auth, config } from "@grafbase/sdk";
 
-type User = {
-  email: String;
-}
 
-type Project = {
-  title: String;
-  description: String;
-  image: String;
-  liveSiteURL: String;
-  githubURL: String;
-  category: String;
-  createdBy: User;
-}
 
 const user = g.model("User", {
   name: g.string().length({ min: 2, max: 20 }),

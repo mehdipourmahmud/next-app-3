@@ -1,8 +1,20 @@
 import { GraphQLClient } from "graphql-request";
+type User = {
+  email: String;
+}
 
+type Project = {
+  title: String;
+  description: String;
+  image: String;
+  liveSiteURL: String;
+  githubURL: String;
+  category: String;
+  createdBy: User;
+}
 const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
 //@ts-ignore
-export const createNewProject = async (projectData, email) => {
+export const createNewProject = async (projectData:Project, email:string) => {
   const mutation = `
     mutation ProjectCreate($input: ProjectCreateInput!) {
       projectCreate(input: $input) {

@@ -3,7 +3,6 @@ import { useState } from "react";
 import ListBox from "@/components/ListBox";
 import "tailwindcss/tailwind.css";
 import { createNewProject } from "../../libs/actions";
-import Navbar from "@/components/Navbar";
 import { useSession } from "next-auth/react";
 
 const CreateNewProject = () => {
