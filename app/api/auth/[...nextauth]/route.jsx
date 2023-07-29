@@ -1,6 +1,8 @@
 // pages/api/auth/[...nextauth].js
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import jsonwebtoken from 'jsonwebtoken'
+import { JWT } from "next-auth/jwt";
 
 const options = {
   secret: process.env.JWT_SECRET,
@@ -10,9 +12,27 @@ const options = {
       clientSecret: process.env.Google_CLIENT_SECRET,
     }),
   ],
+  jwt: {
+    encode: ({ secret, token }) => {
+      const encodedToken = jsonwebtoken.sign(
+        {
+          ...token,
+          iss: "grafbase",
+          exp: Math.floor(Date.now() / 1000) + 60 * 60,
+        },
+        secret
+      );
+
+      return encodedToken;
+    },
+    decode: async ({ secret, token }) => {
+      const decodedToken = jsonwebtoken.verify(token, secret);
+      return decodedToken;
+    },
+  },
 };
 
 const handler = NextAuth(options);
 
-export { handler as GET, handler as POST }
-
+export const GET = handler;
+export const POST = handler;

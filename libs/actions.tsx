@@ -1,5 +1,6 @@
 import { GraphQLClient } from "graphql-request";
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL ||'http://localhost:3000';
 
  type User =  {
   id: string;
@@ -31,7 +32,7 @@ type Project ={
 
 const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
 
-export const createNewProject = async (projectData: Project) => {
+export const createNewProject = async (projectData: Project,token:string) => {
   const mutation = `
     mutation ProjectCreate($input: ProjectCreateInput!) {
       projectCreate(input: $input) {
@@ -87,5 +88,15 @@ export const createNewProject = async (projectData: Project) => {
   } catch (error) {
     console.error("Error creating project:", error);
     alert("Error creating project. Please try again.");
+  }
+};
+
+
+export const fetchToken = async () => {
+  try {
+    const response = await fetch(`${serverUrl}/api/auth/token`);
+    return response.json();
+  } catch (err) {
+    throw err;
   }
 };

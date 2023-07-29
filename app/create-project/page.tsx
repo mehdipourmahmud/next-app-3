@@ -25,10 +25,12 @@ const CreateNewProject = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { token } = await fetchToken()
+
     try {
       const updatedFormData = { ...formData, createdBy: { email: session?.user?.email } };
     
-      await createNewProject(updatedFormData);
+      await createNewProject(updatedFormData,token);
       setFormData({
         title: "",
         description: "",
