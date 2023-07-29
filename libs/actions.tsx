@@ -55,8 +55,8 @@ export const createNewProject = async (projectData: Project) => {
       title: projectData.title,
       description: projectData.description,
       image: projectData.image,
-      liveSiteURL: projectData.liveSiteURL,
-      githubURL: projectData.githubURL,
+      liveSiteURL: projectData.liveSiteUrl,
+      githubURL: projectData.githubUrl,
       category: projectData.category,
       createdBy: {
         link: projectData.createdBy.email // Access the email property correctly
