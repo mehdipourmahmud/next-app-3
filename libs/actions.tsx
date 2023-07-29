@@ -91,6 +91,7 @@ export const createNewProject = async (projectData: Project,token:string) => {
   }
 };
 
+const serverUrl =  process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 
 export const fetchToken = async () => {
   try {
