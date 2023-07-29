@@ -7,7 +7,11 @@ const user = g.model("User", {
   description: g.string(),
   githubURL: g.url().optional(),
   linkInUrl: g.url().optional(),
-  projects: g.relation(() => project).list().optional()
+  projects: g.relation(() => project).list().optional().auth((rules) => {
+  rules.public().read()
+}).auth((rules) => {
+  rules.public().read()
+})
 });
 
 const project = g.model("Project", {
@@ -18,6 +22,9 @@ const project = g.model("Project", {
   githubURL: g.url().optional(),
   category: g.string().search(),
   createdBy: g.relation(() => user),
+}).auth((rules) => {
+  rules.public().read()
+  rules.private().create().delete().update()
 });
 
 export { user, project }; 
