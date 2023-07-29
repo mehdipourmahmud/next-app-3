@@ -1,6 +1,6 @@
 import { GraphQLClient } from "graphql-request";
 
-const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL ||'http://localhost:3000';
+const NEXT_PUBLIC_SERVER_URL = 'http://localhost:3000';
 
  type User =  {
   id: string;
