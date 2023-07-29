@@ -3,6 +3,8 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import jsonwebtoken from 'jsonwebtoken'
 import { JWT } from "next-auth/jwt";
+const JWT_SECRET = "secret";
+
 
 const options = {
   secret: process.env.JWT_SECRET,
