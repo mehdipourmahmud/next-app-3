@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
-export async function GET(req: NextRequest) {
+export async function GET(req) {
   const token = await getToken({ req, secret, raw: true });
 
   return NextResponse.json({ token }, { status: 200 });
-} 
+}
