@@ -5,19 +5,36 @@ import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import ProfileMenu from "./ProfileMenu";
 import { BellIcon, XIcon } from "@heroicons/react/outline";
+// import { useRouter,usePathname,useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+
+
+
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Navbar = () => {
-  const { data: session, status } = useSession();
+const { data: session, status } = useSession();
+const router = useRouter()
+const pathName = usePathname();
 
+const handleSignOut = async () => {
+  try {
+    await signOut();
+    console.log('object')
+    router.push("/");
+  } catch (error) {
+    console.error("Error signing out:", error);
+  }
+};
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" >
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+          <div className="relative mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
             <div className="relative flex items-center justify-between h-16">
               {/* Mobile menu button */}
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -50,8 +67,8 @@ const Navbar = () => {
                   {NavLinks.map((item) => (
                     <Link key={item.key} href={item.href}className={classNames(
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            ? "bg-gray-900 text-black"
+                            : "text-black hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}>
@@ -82,10 +99,12 @@ const Navbar = () => {
                         Sign in with Google
                       </button>
                     )}
+          {session && pathName !== '/create-project' && (
+  <Link href="/create-project" className="px-4 py-2 text-sm font-medium text-black rounded-md">
+    Share work
+  </Link>
+)}
 
-                    <Link href="/create-project"className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md">
-                        Share work
-                    </Link>
                   </Menu.Button>
 
                   {/* Profile dropdown menu */}
@@ -116,15 +135,27 @@ const Navbar = () => {
 
                           <Menu.Item>
                             {({ active }) => (
-                              <button
-                                onClick={() => signOut()}
+                              <div>
+                                <ProfileMenu session={session}/>  <button
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                                  "block px-4 py-2 text-sm text-gray-700 w-full border"
+                                )}
+                              >
+                                Setting
+                              </button>
+                              <button
+                                onClick={handleSignOut}
+                                className={classNames(
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700 w-full border"
                                 )}
                               >
                                 Sign out
                               </button>
+                             
+                              </div>
+                            
                             )}
                           </Menu.Item>
                         </>

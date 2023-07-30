@@ -15,7 +15,7 @@ const CreateNewProject = () => {
     image: "",
     liveSiteURL: "",
     githubURL: "",
-    category: "edeeded",
+    category: "front",
   });
 
   const handleChange = (e) => {
@@ -53,7 +53,7 @@ const CreateNewProject = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col w-full max-w-lg gap-4 bg-white p-8 rounded-lg"
+          className="flex flex-col w-full max-w-lg gap-4 bg-white p-8 rounded-lg mx-auto"
           >
           <div className="mb-4">
             <label htmlFor="title" className="block mb-1 font-bold">
