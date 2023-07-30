@@ -16,7 +16,6 @@ const options = {
   ],
   jwt: {
     encode: ({ secret, token }) => {
-      console.log(token,'jwt')
       const encodedToken = jsonwebtoken.sign(
         {
           ...token,
