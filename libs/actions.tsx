@@ -1,7 +1,36 @@
 import { GraphQLClient } from "graphql-request";
-
 const API_Endpoint = "https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql";
 const serverUrl =  process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
+const API_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODk5OTAxODAsImlzcyI6ImdyYWZiYXNlIiwiYXVkIjoiMDFINVhNN0I2SkJBUlNRUDRXWUhDUjQ3MDciLCJqdGkiOiIwMUg1WE03QlY2M0Q3WktZS0FDWDVOMENQQiIsImVudiI6InByb2R1Y3Rpb24iLCJwdXJwb3NlIjoicHJvamVjdC1hcGkta2V5In0.7QxOXxR8NwWOM3k3oKfcez0HnPBT7Yau_NBP4769y0E'
+
+
+
+type User =  {
+  id: string;
+  name: string;
+  email: string;
+  description: string | null;
+  avatarUrl: string;
+  githubUrl: string | null;
+  linkedinUrl: string | null;
+}
+
+
+type Project ={
+  title: string;
+  description: string;
+  image: string;
+  liveSiteUrl: string;
+  githubUrl: string;
+  category: string;
+  id: string;
+  createdBy: {
+    name: string;
+    email: string;
+    avatarUrl: string;
+    id: string;
+  };
+}
 
 export const fetchToken = async () => {
   try {
@@ -11,6 +40,8 @@ export const fetchToken = async () => {
     throw err;
   }
 };
+
+
 
 export const createNewProject = async (projectData: Project, token: string) => {
   const mutation = `
@@ -40,7 +71,7 @@ export const createNewProject = async (projectData: Project, token: string) => {
       githubURL: projectData.githubUrl,
       category: projectData.category,
       createdBy: {
-        email: projectData.createdBy.email,
+        link: projectData.createdBy.email,
       },
     },
   };
@@ -53,13 +84,12 @@ export const createNewProject = async (projectData: Project, token: string) => {
     }
 
     const client = new GraphQLClient(apiUrl);
-    console.log(client,'cc')
-    client.setHeader("Authorization", `Bearer ${token}`);
+    // client.setHeader("Authorization", `Bearer ${token}`);
+    client.setHeader("x-api-key",API_KEY);
+
     
 
     const data = await client.request(mutation, variables);
-    console.log(data, "dd");
-
     if (data.errors) {
       console.error("Error creating project:", data.errors);
       alert("Error creating project. Please try again.");

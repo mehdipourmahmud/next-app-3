@@ -26,6 +26,7 @@ const router = useRouter()
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { token } = await fetchToken()
+    console.log(token,'tt')
     router.push("/");
 
     try {
