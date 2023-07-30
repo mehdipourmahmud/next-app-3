@@ -4,11 +4,11 @@ import ListBox from "@/components/ListBox";
 import "tailwindcss/tailwind.css";
 import { createNewProject, fetchToken } from "../libs/actions";
 import { useSession } from "next-auth/react";
-import Modal from 'react-modal';
+import { useRouter } from "next/navigation";
 
 const CreateNewProject = () => {
   const { data: session } = useSession();
-
+const router = useRouter()
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -26,6 +26,7 @@ const CreateNewProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { token } = await fetchToken()
+    router.push("/");
 
     try {
       const updatedFormData = { ...formData, createdBy: { email: session?.user?.email } };

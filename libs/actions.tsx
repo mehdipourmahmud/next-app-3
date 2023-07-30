@@ -1,38 +1,18 @@
 import { GraphQLClient } from "graphql-request";
 
-const NEXT_PUBLIC_SERVER_URL = 'http://localhost:3000';
+const API_Endpoint = "https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql";
+const serverUrl =  process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 
- type User =  {
-  id: string;
-  name: string;
-  email: string;
-  description: string | null;
-  avatarUrl: string;
-  githubUrl: string | null;
-  linkedinUrl: string | null;
-}
+export const fetchToken = async () => {
+  try {
+    const response = await fetch(`${serverUrl}/api/auth/token`);
+    return response.json();
+  } catch (err) {
+    throw err;
+  }
+};
 
-
-type Project ={
-  title: string;
-  description: string;
-  image: string;
-  liveSiteUrl: string;
-  githubUrl: string;
-  category: string;
-  id: string;
-  createdBy: {
-    name: string;
-    email: string;
-    avatarUrl: string;
-    id: string;
-  };
-}
-
-
-const API_Endpoint = 'https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql';
-
-export const createNewProject = async (projectData: Project,token:string) => {
+export const createNewProject = async (projectData: Project, token: string) => {
   const mutation = `
     mutation ProjectCreate($input: ProjectCreateInput!) {
       projectCreate(input: $input) {
@@ -60,7 +40,7 @@ export const createNewProject = async (projectData: Project,token:string) => {
       githubURL: projectData.githubUrl,
       category: projectData.category,
       createdBy: {
-        link: projectData.createdBy.email // Access the email property correctly
+        email: projectData.createdBy.email,
       },
     },
   };
@@ -73,9 +53,12 @@ export const createNewProject = async (projectData: Project,token:string) => {
     }
 
     const client = new GraphQLClient(apiUrl);
+    console.log(client,'cc')
+    client.setHeader("Authorization", `Bearer ${token}`);
+    
 
     const data = await client.request(mutation, variables);
-    console.log(data, 'dd');
+    console.log(data, "dd");
 
     if (data.errors) {
       console.error("Error creating project:", data.errors);
@@ -88,16 +71,5 @@ export const createNewProject = async (projectData: Project,token:string) => {
   } catch (error) {
     console.error("Error creating project:", error);
     alert("Error creating project. Please try again.");
-  }
-};
-
-const serverUrl =  process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
-
-export const fetchToken = async () => {
-  try {
-    const response = await fetch(`${serverUrl}/api/auth/token`);
-    return response.json();
-  } catch (err) {
-    throw err;
   }
 };
