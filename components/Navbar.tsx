@@ -20,7 +20,6 @@ const Navbar = () => {
 const { data: session, status } = useSession();
 const router = useRouter()
 const pathName = usePathname();
-
 const handleSignOut = async () => {
   try {
     await signOut();

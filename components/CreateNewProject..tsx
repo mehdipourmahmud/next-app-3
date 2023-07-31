@@ -30,9 +30,9 @@ const router = useRouter()
     router.push("/");
 
     try {
-      const updatedFormData = { ...formData, createdBy: { email: session?.user?.email } };
+      const projectData = { ...formData, createdBy: { email: session?.user?.email } };
     
-      await createNewProject(updatedFormData,token);
+      await createNewProject(projectData,token);
       setFormData({
         title: "",
         description: "",
