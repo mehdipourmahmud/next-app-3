@@ -37,8 +37,8 @@ const router = useRouter()
         title: "",
         description: "",
         image: "",
-        liveSiteURL: "",
-        githubURL: "",
+        liveSiteUrl: "",
+        githubUrl: "",
         category: "",
       });
 
@@ -99,13 +99,13 @@ const router = useRouter()
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="liveSiteURL" className="block mb-1 font-bold">
+            <label htmlFor="liveSiteUrl" className="block mb-1 font-bold">
               Live Site URL:
             </label>
             <input
               type="text"
-              id="liveSiteURL"
-              name="liveSiteURL"
+              id="liveSiteUrl"
+              name="liveSiteUrl"
               value={formData.liveSiteURL}
               onChange={handleChange}
               required

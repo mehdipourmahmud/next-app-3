@@ -4,9 +4,9 @@ import { g, config, auth } from '@grafbase/sdk';
 const User = g.model('User', {
   name: g.string().length({ min: 2, max: 100 }),
   email: g.string().unique(),
-  avatarUrl: g.url(),
+  avatarURL: g.url(),
   description: g.string().length({ min: 2, max: 1000 }).optional(),
-  githubUrl: g.url().optional(),
+  githubURL: g.url().optional(),
   linkedinUrl: g.url().optional(), 
   projects: g.relation(() => Project).list().optional(),
 }).auth((rules) => {
