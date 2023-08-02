@@ -9,7 +9,7 @@ export const createProjectMutation = `
         liveSiteURL
         githubURL
         category
-        linkedinUrl
+        linkInUrl
 				createdBy {
 					email
 					name
@@ -26,7 +26,7 @@ export const createUserMutation = `
 			user {
 				name
 				email
-				avatarUrl
+				avatarURL
 			}
 		}
 	}
@@ -40,10 +40,6 @@ export const getUserQuery = `
       id
       name
       email
-      avatarUrl
-      description
-      githubUrl
-      linkedinUrl
     }
   }
 `;

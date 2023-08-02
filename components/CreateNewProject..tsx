@@ -16,7 +16,7 @@ const router = useRouter()
     liveSiteURL: "",
     githubURL: "",
     category: "front",
-    linkedinUrl:""
+    linkInUrl:""
   });
 
   const handleChange = (e) => {
@@ -41,6 +41,7 @@ const router = useRouter()
         liveSiteURL: "",
         githubURL: "",
         category: "",
+        linkInUrl:""
       });
 
       alert("Project created successfully!");
@@ -116,13 +117,13 @@ const router = useRouter()
 
 
           <div className="mb-4">
-            <label htmlFor="linkedinUrl" className="block mb-1 font-bold">
+            <label htmlFor="linkInUrl" className="block mb-1 font-bold">
               Live Site URL:
             </label>
             <input
               type="text"
-              id="linkedinUrl"
-              name="linkedinUrl"
+              id="linkInUrl"
+              name="linkInUrl"
               value={formData.liveSiteURL}
               onChange={handleChange}
               required

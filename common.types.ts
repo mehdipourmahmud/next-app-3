@@ -3,22 +3,22 @@ export interface User{
   name: string;
   email: string;
   description: string | null;
-  avatarUrl: string;
-  githubUrl: string | null;
-  linkedinUrl: string | null;
+  avatarURL: string;
+  githubURL: string | null;
+  linkInUrl: string | null;
 }
 export interface Project{
     title: string;
   description: string;
   image: string;
   liveSiteUrl: string;
-  githubUrl: string;
+  githubURL: string;
   category: string;
   id: string;
   createdBy: {
     name: string;
     email: string;
-    avatarUrl: string;
+    avatarURL: string;
     id: string;
   };
 }
