@@ -1,6 +1,6 @@
 import { GraphQLClient } from "graphql-request";
 import jsonwebtoken from 'jsonwebtoken';
-import{createProjectMutation} from '../graphql/index'
+import{createProjectMutation,createUserMutation} from '../graphql/index'
 import {User,Project} from '../common.types';
 const API_URL = "https://next-app-3-main-mehdipourmahmud.grafbase.app/graphql";
 const API_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODk5OTAxODAsImlzcyI6ImdyYWZiYXNlIiwiYXVkIjoiMDFINVhNN0I2SkJBUlNRUDRXWUhDUjQ3MDciLCJqdGkiOiIwMUg1WE03QlY2M0Q3WktZS0FDWDVOMENQQiIsImVudiI6InByb2R1Y3Rpb24iLCJwdXJwb3NlIjoicHJvamVjdC1hcGkta2V5In0.7QxOXxR8NwWOM3k3oKfcez0HnPBT7Yau_NBP4769y0E'
@@ -65,7 +65,7 @@ export const createUser = (name: string, email: string, avatarUrl: string) => {
 };
 
 
-export const getUser = (email: string) => {
-  client.setHeader("x-api-key", API_KEY);
-  return makeGraphQLRequest(getUserQuery, { email });
-};
+// export const getUser = (email: string) => {
+//   client.setHeader("x-api-key", API_KEY);
+//   return makeGraphQLRequest(getUserQuery, { email });
+// };
