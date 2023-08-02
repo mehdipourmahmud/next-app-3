@@ -32,7 +32,6 @@ export const createUserMutation = `
 	}
 `;
 
-// graphql.ts
 
 export const getUserQuery = `
   query GetUser($email: String!) {
