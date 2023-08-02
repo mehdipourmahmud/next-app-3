@@ -16,6 +16,7 @@ const router = useRouter()
     liveSiteURL: "",
     githubURL: "",
     category: "front",
+    linkedinUrl:""
   });
 
   const handleChange = (e) => {
@@ -37,8 +38,8 @@ const router = useRouter()
         title: "",
         description: "",
         image: "",
-        liveSiteUrl: "",
-        githubUrl: "",
+        liveSiteURL: "",
+        githubURL: "",
         category: "",
       });
 
@@ -99,13 +100,29 @@ const router = useRouter()
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="liveSiteUrl" className="block mb-1 font-bold">
+            <label htmlFor="liveSiteURL" className="block mb-1 font-bold">
               Live Site URL:
             </label>
             <input
               type="text"
-              id="liveSiteUrl"
-              name="liveSiteUrl"
+              id="liveSiteURL"
+              name="liveSiteURL"
+              value={formData.liveSiteURL}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border rounded"
+            />
+          </div>
+
+
+          <div className="mb-4">
+            <label htmlFor="linkedinUrl" className="block mb-1 font-bold">
+              Live Site URL:
+            </label>
+            <input
+              type="text"
+              id="linkedinUrl"
+              name="linkedinUrl"
               value={formData.liveSiteURL}
               onChange={handleChange}
               required

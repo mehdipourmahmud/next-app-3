@@ -56,3 +56,10 @@ body {
   padding: 20px;
   border-radius: 8px;
 }
+
+.form_image-container {
+  @apply w-full lg:min-h-[400px] min-h-[200px] relative;
+}
+.flexStart {
+  @apply flex items-center justify-start;
+}

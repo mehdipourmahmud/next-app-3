@@ -5,6 +5,11 @@ export const createProjectMutation = `
 				id
 				title
 				description
+        image
+        liveSiteURL
+        githubURL
+        category
+        linkedinUrl
 				createdBy {
 					email
 					name
@@ -14,29 +19,6 @@ export const createProjectMutation = `
 	}
 `;
 
-export const updateProjectMutation = `
-	mutation UpdateProject($id: ID!, $input: ProjectUpdateInput!) {
-		projectUpdate(by: { id: $id }, input: $input) {
-			project {
-				id
-				title
-				description
-				createdBy {
-					email
-					name
-				}
-			}
-		}
-	}
-`;
-
-export const deleteProjectMutation = `
-  mutation DeleteProject($id: ID!) {
-    projectDelete(by: { id: $id }) {
-      deletedId
-    }
-  }
-`;
       
 export const createUserMutation = `
 	mutation CreateUser($input: UserCreateInput!) {
@@ -45,63 +27,9 @@ export const createUserMutation = `
 				name
 				email
 				avatarUrl
-				description
-				githubURL
-				linkedinUrl
-				id
 			}
 		}
 	}
-`;
-
-export const projectsQuery = `
-  query getProjects($category: String, $endcursor: String) {
-    projectSearch(first: 8, after: $endcursor, filter: {category: {eq: $category}}) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
-      }
-      edges {
-        node {
-          title
-          githubURL
-          description
-          liveSiteUrl
-          id
-          image
-          category
-          createdBy {
-            id
-            email
-            name
-            avatarUrl
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const getProjectByIdQuery = `
-  query GetProjectById($id: ID!) {
-    project(by: { id: $id }) {
-      id
-      title
-      description
-      image
-      liveSiteUrl
-      githubURL
-      category
-      createdBy {
-        id
-        name
-        email
-        avatarUrl
-      }
-    }
-  }
 `;
 
 export const getUserQuery = `
@@ -112,31 +40,9 @@ export const getUserQuery = `
       email
       avatarUrl
       description
-      githubURL
+      githubUrl
       linkedinUrl
     }
   }
 `;
       
-export const getProjectsOfUserQuery = `
-  query getUserProjects($id: ID!, $last: Int = 4) {
-    user(by: { id: $id }) {
-      id
-      name
-      email
-      description
-      avatarUrl
-      githubURL
-      linkedinUrl
-      projects(last: $last) {
-        edges {
-          node {
-            id
-            title
-            image
-          }
-        }
-      }
-    }
-  }
-`;
