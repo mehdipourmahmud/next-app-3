@@ -1,3 +1,5 @@
+import {  Session } from 'next-auth'
+
 export interface User{
   id: string;
   name: string;
@@ -5,7 +7,6 @@ export interface User{
   description: string | null;
   avatarURL: string;
   githubURL: string | null;
-  linkInUrl: string | null;
 }
 export interface Project{
     title: string;
@@ -23,3 +24,11 @@ export interface Project{
   };
 }
 
+export interface SessionInterface extends Session {
+  user: User & {
+    id: string;
+    name: string;
+    email: string;
+    avatarUrl: string;
+  };
+}

@@ -9,11 +9,12 @@ export const createProjectMutation = `
         liveSiteURL
         githubURL
         category
-        linkInUrl
-				createdBy {
-					email
-					name
-				}
+				createdBy {  
+          id
+          name
+          email
+        } 
+					
 			}
 		}
 	}

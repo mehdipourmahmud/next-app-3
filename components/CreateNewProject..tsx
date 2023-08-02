@@ -3,37 +3,31 @@ import { useState } from "react";
 import ListBox from "@/components/ListBox";
 import "tailwindcss/tailwind.css";
 import { createNewProject, fetchToken } from "../libs/actions";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const CreateNewProject = () => {
-  const { data: session } = useSession();
-const router = useRouter()
-  const [formData, setFormData] = useState({
+const CreateNewProject = ({session}) => {
+  console.log(session,'seee')
+  const router = useRouter();
+  const [form, setFormData] = useState({
     title: "",
     description: "",
     image: "",
     liveSiteURL: "",
     githubURL: "",
     category: "front",
-    linkInUrl:""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { token } = await fetchToken()
-    console.log(token,'tt')
+    const { token } = await fetchToken();
     router.push("/");
-
+  
     try {
-      const projectData = { ...formData, createdBy: { email: session?.user?.email } };
-    
-      await createNewProject(projectData,token);
+      const re = await createNewProject(form, session?.user?.email, token); // Pass the userId directly
       setFormData({
         title: "",
         description: "",
@@ -41,20 +35,17 @@ const router = useRouter()
         liveSiteURL: "",
         githubURL: "",
         category: "",
-        linkInUrl:""
       });
-
+  
       alert("Project created successfully!");
     } catch (error) {
       console.error("Error creating project:", error);
       alert("Error creating project. Please try again.");
     }
   };
-
+  
   return (
     <div>
-
-
         <form
           onSubmit={handleSubmit}
           className="flex flex-col w-full max-w-lg gap-4 bg-white p-8 rounded-lg mx-auto"
@@ -67,7 +58,7 @@ const router = useRouter()
               type="text"
               id="title"
               name="title"
-              value={formData.title}
+              value={form.title}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
@@ -80,7 +71,7 @@ const router = useRouter()
             <textarea
               id="description"
               name="description"
-              value={formData.description}
+              value={form.description}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
@@ -94,7 +85,7 @@ const router = useRouter()
               type="text"
               id="image"
               name="image"
-              value={formData.image}
+              value={form.image}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
@@ -108,7 +99,7 @@ const router = useRouter()
               type="text"
               id="liveSiteURL"
               name="liveSiteURL"
-              value={formData.liveSiteURL}
+              value={form.liveSiteURL}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
@@ -116,20 +107,7 @@ const router = useRouter()
           </div>
 
 
-          <div className="mb-4">
-            <label htmlFor="linkInUrl" className="block mb-1 font-bold">
-              Live Site URL:
-            </label>
-            <input
-              type="text"
-              id="linkInUrl"
-              name="linkInUrl"
-              value={formData.liveSiteURL}
-              onChange={handleChange}
-              required
-              className="w-full p-2 border rounded"
-            />
-          </div>
+    
           <div className="mb-4">
             <label htmlFor="githudURL" className="block mb-1 font-bold">
               GitHub URL:
@@ -138,7 +116,7 @@ const router = useRouter()
               type="text"
               id="githubURL"
               name="githubURL"
-              value={formData.githubURL}
+              value={form.githubURL}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
