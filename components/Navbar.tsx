@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import ProfileMenu from "./ProfileMenu";
 import { BellIcon, XIcon } from "@heroicons/react/outline";
-// import { useRouter,usePathname,useSearchParams } from "next/navigation";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 
