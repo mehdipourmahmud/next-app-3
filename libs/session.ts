@@ -11,6 +11,7 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.Google_CLIENT_ID!,
       clientSecret: process.env.Google_CLIENT_SECRET!,
+      
     }),
   ],
   jwt: {
@@ -50,6 +51,5 @@ export const authOptions: NextAuthOptions = {
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions) as SessionInterface;
-  console.log(session, 'dd');
   return session;
 }
