@@ -6,6 +6,8 @@ import { JWT } from "next-auth/jwt";
 import { createUser, getUser } from "../libs/actions"; // Import the function to create a new user.
 import { SessionInterface } from "@/common.types";
 
+
+
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({

@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
   const Page = async () => {
 
   const session = await getCurrentUser();
-  console.log(session,'see2')
 
   if (!session?.user) 
   redirect("/")
@@ -22,3 +21,4 @@ import { redirect } from "next/navigation";
 };
 
 export default Page;
+
