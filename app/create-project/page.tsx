@@ -1,5 +1,4 @@
 import CreateNewProject from '../../components/CreateNewProject.';
-import React, { useState, useEffect } from 'react';
 import { getCurrentUser } from '@/libs/session';
 import { redirect } from "next/navigation";
 

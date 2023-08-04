@@ -38,17 +38,24 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user }) {
       const { email, name, image, id } = user;
-      console.log(id, 'uu');
+
+      console.log(user, 'uu');
       const existingUser = await getUser(email);
-      if (!existingUser.user) {
-        await createUser(name as string, email as string, image as string,id as string);
+      const userExists = !!existingUser.user; // Convert to boolean here
+      console.log(userExists,'boo')
+      if (!userExists) {      
+      const res=   await createUser(name as string, email as string, image as string, id as string);
+      console.log(res,'impo')
       }
+      user.id = id; // Add the Google ID to the user object
       return true; // Allow sign-in
     },
   },
+  
 }
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions) as SessionInterface;
   return session;
 }
+

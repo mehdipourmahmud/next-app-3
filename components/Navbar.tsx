@@ -20,6 +20,7 @@ const { data: session, status } = useSession();
 console.log(status,session)
 const router = useRouter()
 const pathName = usePathname();
+
 const handleSignOut = async () => {
   try {
     await signOut();

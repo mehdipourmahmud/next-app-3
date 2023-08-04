@@ -48,7 +48,7 @@ export const createNewProject = async (form: Project, creatorEmail: string, toke
 
 
 
-export const createUser = (name: string, email: string, avatarURL: string,id:string) => {
+export const createUser = (name: string, email: string, image: string,id:string) => {
   client.setHeader("x-api-key", API_KEY);
 
   const variables = {
@@ -56,7 +56,7 @@ export const createUser = (name: string, email: string, avatarURL: string,id:str
       id:id,
       name: name,
       email: email,
-      avatarURL: avatarURL
+      avatarURL: image
     },
   };
   
