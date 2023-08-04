@@ -3,17 +3,15 @@ import { NextAuthOptions, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import jsonwebtoken from 'jsonwebtoken'
 import { JWT } from "next-auth/jwt";
-import { createUser, getUser } from "../libs/actions"; // Import the function to create a new user.
+import { createUser, getUser } from "../libs/actions";
 import { SessionInterface } from "@/common.types";
-
-
 
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.Google_CLIENT_ID!,
       clientSecret: process.env.Google_CLIENT_SECRET!,
-      
+      scopes: ['openid', 'userinfo.email', 'userinfo.profile'],
     }),
   ],
   jwt: {
@@ -26,7 +24,6 @@ export const authOptions: NextAuthOptions = {
         },
         secret
       );
-      
       return encodedToken;
     },
     decode: async ({ secret, token }) => {
@@ -40,14 +37,14 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user }) {
-      const { email, name, image, id } = user; // Include the "id" field here
+      const { email, name, image, id } = user;
+      console.log(id, 'uu');
       const existingUser = await getUser(email);
-      console.log(existingUser, 'res')
       if (!existingUser.user) {
-        await createUser(user.name as string, user.email as string, user.image as string);
+        await createUser(name as string, email as string, image as string,id as string);
       }
+      return true; // Allow sign-in
     },
-  
   },
 }
 
