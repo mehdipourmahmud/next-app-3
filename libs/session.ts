@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import jsonwebtoken from 'jsonwebtoken'
 import { JWT } from "next-auth/jwt";
 import { createUser, getUser } from "../libs/actions";
-import { SessionInterface } from "@/common.types";
+import { SessionInterface,UserProfile } from "@/common.types";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -36,21 +36,45 @@ export const authOptions: NextAuthOptions = {
     logo: "/logo.svg",
   },
   callbacks: {
+    async session({ session }) {
+      const email = session?.user?.email as string;
+
+      try { 
+        const data = await getUser(email) as { user?: UserProfile }
+
+        const newSession = {
+          ...session,
+          user: {
+            ...session.user,
+            ...data?.user,
+          },
+        };
+
+        return newSession;
+      } catch (error: any) {
+        console.error("Error retrieving user data: ", error.message);
+        return session;
+      }
+    },
     async signIn({ user }) {
       const { email, name, image, id } = user;
-
-      console.log(user, 'uu');
       const existingUser = await getUser(email);
       const userExists = !!existingUser.user; // Convert to boolean here
-      console.log(userExists,'boo')
-      if (!userExists) {      
-      const res=   await createUser(name as string, email as string, image as string, id as string);
-      console.log(res,'impo')
+
+      if (!userExists) {
+        try {
+          await createUser(name as string, email as string, image as string);
+        } catch (error) {
+          console.log('Error while creating user:', error.message);
+     
+        }
       }
-      user.id = id; // Add the Google ID to the user object
-      return true; // Allow sign-in
+  
+      const updatedUser = { ...user, id };
+      return { ...updatedUser };
     },
   },
+  
   
 }
 
@@ -58,4 +82,6 @@ export async function getCurrentUser() {
   const session = await getServerSession(authOptions) as SessionInterface;
   return session;
 }
+
+
 

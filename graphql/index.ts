@@ -10,7 +10,6 @@ export const createProjectMutation = `
         githubURL
         category
 				createdBy {  
-          id
           name
           email
         } 
@@ -41,6 +40,52 @@ export const getUserQuery = `
       id
       name
       email
+    }
+  }
+`;
+
+
+
+export const getAllProjects =`
+query ProjectSearch($category: String!) {
+  projectSearch(
+    first: 10
+    filter: { category: { eq: $category } }
+  ) {
+    edges {
+      node {
+        title
+        description
+        image
+        liveSiteURL
+        githubURL
+        category
+      }
+    }
+  }
+}
+`
+
+
+export const getProjectByIdQuery = `
+  query User($id: String!) {
+    user(by: { email: $id }) {
+      projects(last: 10) {
+        edges {
+          node {
+            title
+            description
+            image
+            liveSiteURL
+            githubURL
+            category
+            id
+          }
+        }
+      }
+      name
+      email
+      avatarURL
     }
   }
 `;

@@ -4,10 +4,10 @@ import {categoryFilters} from '../constants/index'
 
 
 
-export default function MyCombobox() {
+export default function MyCombobox({setsetCategory}) {
   const [selectedLink, setSelectedLink] = useState(categoryFilters[0])
   const [query, setQuery] = useState('')
-
+  setsetCategory(selectedLink)
   const filteredLinks =
     query === ''
       ? categoryFilters

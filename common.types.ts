@@ -8,27 +8,44 @@ export interface User{
   avatarURL: string;
   githubURL: string | null;
 }
-export interface Project{
-    title: string;
+export interface ProjectInterface {
+  title: string;
   description: string;
   image: string;
   liveSiteUrl: string;
-  githubURL: string;
+  githubUrl: string;
   category: string;
   id: string;
   createdBy: {
     name: string;
     email: string;
-    avatarURL: string;
+    avatarUrl: string;
     id: string;
   };
 }
-
 export interface SessionInterface extends Session {
   user: User & {
     id: string;
     name: string;
     email: string;
     avatarUrl: string;
+  };
+}
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  description: string | null;
+  avatarUrl: string;
+  githubUrl: string | null;
+  linkedinUrl: string | null;
+  projects: {
+    edges: { node: ProjectInterface }[];
+    pageInfo: {
+      hasPreviousPage: boolean;
+      hasNextPage: boolean;
+      startCursor: string;
+      endCursor: string;
+    };
   };
 }

@@ -6,15 +6,16 @@ import { createNewProject, fetchToken } from "../libs/actions";
 import { useRouter } from "next/navigation";
 
 const CreateNewProject = ({session}) => {
-  console.log(session,'seee')
+const [category, setsetCategory] = useState('')
+console.log(category,'cat')
   const router = useRouter();
-  const [form, setFormData] = useState({
+  const [formData, setFormData] = useState({
     title: "",
     description: "",
     image: "",
     liveSiteURL: "",
     githubURL: "",
-    category: "front",
+    category: "",
   });
 
   const handleChange = (e) => {
@@ -25,9 +26,10 @@ const CreateNewProject = ({session}) => {
     e.preventDefault();
     const { token } = await fetchToken();
     router.push("/");
-  
+  console.log(session?.user?.id,'idd')
     try {
-      const re = await createNewProject(form, session?.user?.email, token); // Pass the userId directly
+      const form ={...formData,category}
+  await createNewProject(form, session?.user?.id, token); // Pass the userId directly
       setFormData({
         title: "",
         description: "",
@@ -58,7 +60,7 @@ const CreateNewProject = ({session}) => {
               type="text"
               id="title"
               name="title"
-              value={form.title}
+              value={formData.title}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
@@ -71,7 +73,7 @@ const CreateNewProject = ({session}) => {
             <textarea
               id="description"
               name="description"
-              value={form.description}
+              value={formData.description}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
@@ -85,7 +87,7 @@ const CreateNewProject = ({session}) => {
               type="text"
               id="image"
               name="image"
-              value={form.image}
+              value={formData.image}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
@@ -99,7 +101,7 @@ const CreateNewProject = ({session}) => {
               type="text"
               id="liveSiteURL"
               name="liveSiteURL"
-              value={form.liveSiteURL}
+              value={formData.liveSiteURL}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
@@ -116,14 +118,14 @@ const CreateNewProject = ({session}) => {
               type="text"
               id="githubURL"
               name="githubURL"
-              value={form.githubURL}
+              value={formData.githubURL}
               onChange={handleChange}
               required
               className="w-full p-2 border rounded"
             />
           </div>
           <div className="mb-4">
-            <ListBox />
+            <ListBox setsetCategory={setsetCategory}/>
           </div>
 
           <button

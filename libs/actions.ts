@@ -1,7 +1,6 @@
 import { GraphQLClient } from "graphql-request";
-import jsonwebtoken from 'jsonwebtoken';
-import{createProjectMutation,createUserMutation, getUserQuery} from '../graphql/index'
-import {User,Project} from '../common.types';
+import{createProjectMutation,createUserMutation, getUserQuery,getProjectByIdQuery, getAllProjects} from '../graphql/index'
+import {User,ProjectInterface} from '../common.types';
 const API_URL = "https://next-app-3-main-mehdipourmahmud-mo12cjnp.grafbase.app/graphql";
 const API_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTA5NzU4MTUsImlzcyI6ImdyYWZiYXNlIiwiYXVkIjoiMDFINlYwNkdYNlI0MTVSSDFFRkRONVRXUzUiLCJqdGkiOiIwMUg2VjA2SEMxUURXNUpNOEs4RzFURk0yQSIsImVudiI6InByb2R1Y3Rpb24iLCJwdXJwb3NlIjoicHJvamVjdC1hcGkta2V5In0.mAqR_-jO0oxOsc-h_HZA-qlqEwAoYLT7YTEv0SnNUk4'
 const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
@@ -28,14 +27,15 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
   }
 };
 
-export const createNewProject = async (form: Project, creatorEmail: string, token: string) => {
+export const createNewProject = async (form: ProjectInterface, id: string, token: string) => {
   try {
     client.setHeader("Authorization", `Bearer ${token}`);
     const variables = {
       input: { 
         ...form,  
-        createdBy: { email: creatorEmail }, // Pass the email as an object
-      }
+        createdBy: { 
+          link: id 
+        }      }
     };
 
 
@@ -48,12 +48,11 @@ export const createNewProject = async (form: Project, creatorEmail: string, toke
 
 
 
-export const createUser = (name: string, email: string, image: string,id:string) => {
+export const createUser = (name: string, email: string, image: string) => {
   client.setHeader("x-api-key", API_KEY);
 
   const variables = {
     input: {
-      id:id,
       name: name,
       email: email,
       avatarURL: image
@@ -67,4 +66,22 @@ export const createUser = (name: string, email: string, image: string,id:string)
 export const getUser = (email: string) => {
   client.setHeader("x-api-key", API_KEY);
   return makeGraphQLRequest(getUserQuery, { email });
+};
+
+
+export const getProjectDetails = (id: string) => {
+  client.setHeader("x-api-key", API_KEY);
+  return makeGraphQLRequest(getProjectByIdQuery, { id });
+};
+
+
+export const fetchAllProjects = async (category = null) => {
+  client.setHeader("x-api-key", API_KEY);
+
+  try {
+    return await makeGraphQLRequest(getAllProjects, { category });
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    throw error;
+  }
 };
