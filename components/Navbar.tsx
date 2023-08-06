@@ -17,7 +17,6 @@ function classNames(...classes: string[]) {
 
 const Navbar = () => {
 const { data: session, status } = useSession();
-console.log(status,session)
 const router = useRouter()
 const pathName = usePathname();
 

@@ -65,14 +65,28 @@ query ProjectSearch($category: String!) {
   }
 }
 `
+export const getAllProjectswithoutcategory =`
+query ProjectCollection {
+  projectCollection(last: 10) {
+    edges {
+      node {
+        title
+        description
+        image
+        liveSiteURL
+        githubURL
+        category
+        id
+      }
+    }
+  }
+}
+`
 
 
 export const getProjectByIdQuery = `
-  query User($id: String!) {
-    user(by: { email: $id }) {
-      projects(last: 10) {
-        edges {
-          node {
+query Project($id: ID!){
+    project(by: { id: $id }) {
             title
             description
             image
@@ -81,11 +95,31 @@ export const getProjectByIdQuery = `
             category
             id
           }
-        }
-      }
-      name
-      email
-      avatarURL
-    }
+      
   }
 `;
+export const getprojectofuseer = `
+query GetUserProjects($id: ID!) {
+  user(by: { id: $id }) {
+    id
+    name
+    projects(first: 10) { 
+      edges {
+        node {
+          id
+          title
+          description
+          image
+          liveSiteURL
+          githubURL
+          category
+        }
+      }
+    }
+  }
+}
+
+
+
+  
+`

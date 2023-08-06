@@ -1,5 +1,5 @@
 import { GraphQLClient } from "graphql-request";
-import{createProjectMutation,createUserMutation, getUserQuery,getProjectByIdQuery, getAllProjects} from '../graphql/index'
+import{createProjectMutation,createUserMutation, getUserQuery,getProjectByIdQuery, getAllProjects, getAllProjectswithoutcategory, getprojectofuseer} from '../graphql/index'
 import {User,ProjectInterface} from '../common.types';
 const API_URL = "https://next-app-3-main-mehdipourmahmud-mo12cjnp.grafbase.app/graphql";
 const API_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTA5NzU4MTUsImlzcyI6ImdyYWZiYXNlIiwiYXVkIjoiMDFINlYwNkdYNlI0MTVSSDFFRkRONVRXUzUiLCJqdGkiOiIwMUg2VjA2SEMxUURXNUpNOEs4RzFURk0yQSIsImVudiI6InByb2R1Y3Rpb24iLCJwdXJwb3NlIjoicHJvamVjdC1hcGkta2V5In0.mAqR_-jO0oxOsc-h_HZA-qlqEwAoYLT7YTEv0SnNUk4'
@@ -75,13 +75,34 @@ export const getProjectDetails = (id: string) => {
 };
 
 
-export const fetchAllProjects = async (category = null) => {
+export const fetchAllProjects = async (category) => {
   client.setHeader("x-api-key", API_KEY);
 
   try {
-    return await makeGraphQLRequest(getAllProjects, { category });
+    const variables = category ? { category } : {}; // Add category to variables only if it's not null
+    console.log(variables,'val')
+    return await makeGraphQLRequest(getAllProjects, variables);
   } catch (error) {
     console.error("Error fetching projects:", error);
     throw error;
   }
+};
+
+export const fetchallprojectswithoutcategory = () => {
+  client.setHeader("x-api-key", API_KEY);
+  return makeGraphQLRequest(getAllProjectswithoutcategory, {  });
+};
+
+
+export const getProjectByid = (id:string) => {
+  client.setHeader("x-api-key", API_KEY);
+  return makeGraphQLRequest(getProjectByIdQuery, {id });
+};
+
+
+
+export const getuserprojects = (id:string) => {
+  console.log(id,'ld')
+  client.setHeader("x-api-key", API_KEY);
+  return makeGraphQLRequest(getprojectofuseer, {id });
 };
